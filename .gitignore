@@ -1,55 +1,27 @@
-# Prerequisites
-*.d
+#include <stdio.h>
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+#define MOD 12345
+#define MAX_N 10000
 
-# Linker output
-*.ilk
-*.map
-*.exp
+int main() {
+    int n;
+    printf("Введіть довжину послідовності n: ");
+    scanf("%d", &n);
 
-# Precompiled Headers
-*.gch
-*.pch
+    if (n < 1 || n >= MAX_N) {
+        printf("Неприпустиме значення n\n");
+        return 1;
+    }
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+    int dp[MAX_N];
+    dp[0] = 1;     
+    dp[1] = 2;     
+    dp[2] = 4;    
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+    for (int i = 3; i <= n; i++) {
+        dp[i] = (dp[i-1] + dp[i-2] + dp[i-3]) % MOD;
+    }
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
-
-# debug information files
-*.dwo
+    printf("Кількість шуканих послідовностей: %d\n", dp[n]);
+    return 0;
+}
